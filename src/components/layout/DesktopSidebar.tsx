@@ -9,12 +9,12 @@ export function DesktopSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 hidden h-screen w-72 flex-col bg-brand-900 p-6 text-white lg:flex">
+    <aside className="fixed left-0 top-0 hidden h-screen w-[260px] flex-col bg-brand-900 p-5 text-white lg:flex">
       <div className="mb-8 flex items-center gap-3">
-        <div className="grid h-11 w-11 place-items-center rounded-2xl bg-cta text-brand-900">
+        <div className="grid h-10 w-10 place-items-center rounded-2xl bg-cta text-brand-900">
           <ShieldCheck size={22} />
         </div>
-        <div className="text-xl font-bold leading-tight">
+        <div className="text-lg font-bold leading-tight">
           Ренессанс
           <br />
           <span className="text-white/70">Жизнь</span>

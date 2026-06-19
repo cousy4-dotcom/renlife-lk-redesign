@@ -7,9 +7,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <>
       <DesktopSidebar />
-      <main className="min-h-screen px-4 pb-24 pt-4 sm:px-6 lg:ml-72 lg:px-8 lg:py-6 xl:px-10">
-        <TopBar />
-        {children}
+      <main className="min-h-screen px-3 pb-28 pt-3 sm:px-5 lg:ml-[260px] lg:px-6 lg:py-5 xl:px-8">
+        <div className="mx-auto w-full max-w-[1220px]">
+          <TopBar />
+          {children}
+        </div>
       </main>
       <MobileBottomNav />
     </>

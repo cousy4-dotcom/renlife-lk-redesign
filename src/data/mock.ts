@@ -35,10 +35,10 @@ export const contracts = [
     premium: '30 000 ₽',
     nextPaymentDate: '25 июля',
     insuredAmount: '1 500 000 ₽',
-    paidAmount: '420 000 ₽',
-    paidPercent: 64,
+    paidAmount: '120 000 ₽',
+    paidPercent: 18,
     term: '2023—2033',
-    termProgress: 28,
+    termProgress: 18,
   },
 ];
 
