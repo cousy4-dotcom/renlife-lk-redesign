@@ -1,0 +1,2 @@
+import { AppShell } from '@/components/layout/AppShell';import { NotificationCard } from '@/components/ui/NotificationCard';import { notifications } from '@/data/mock';
+export default function Notifications(){return <AppShell><h2 className="mb-4 text-2xl font-black text-brand-900">Уведомления</h2><div className="grid gap-4">{notifications.map(n=><NotificationCard key={n.id} title={n.title} text={n.text}/>)}</div></AppShell>}
