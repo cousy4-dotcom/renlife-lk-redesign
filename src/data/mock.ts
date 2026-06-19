@@ -27,7 +27,7 @@ export const navItems = [
 
 export const contracts = [
   {
-    id: 'vs-102938',
+    id: 'contract-1',
     number: '№ РЖ-102938-24',
     title: 'Выгодный старт',
     type: 'Инвестиционное страхование жизни',
@@ -45,7 +45,7 @@ export const contracts = [
 export const payments = [
   {
     id: 'pay-001',
-    contractId: 'vs-102938',
+    contractId: 'contract-1',
     amount: '30 000 ₽',
     dueDate: '25 июля',
     status: 'Ожидает оплаты',
@@ -78,7 +78,7 @@ export const claims = [
 
 export const quickActions = [
   { label: 'Оплатить', href: '/payment', icon: CreditCard, primary: true },
-  { label: 'Открыть договор', href: '/contracts/vs-102938', icon: ShieldCheck },
+  { label: 'Открыть договор', href: '/contracts/contract-1', icon: ShieldCheck },
   { label: 'Документы', href: '/documents', icon: FileText },
   { label: 'Поддержка', href: '/claims/new', icon: Headphones },
 ];
