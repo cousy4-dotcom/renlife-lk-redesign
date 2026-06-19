@@ -1,0 +1,2 @@
+import { AppShell } from '@/components/layout/AppShell';import { Button } from '@/components/ui/Button';import { Card } from '@/components/ui/Card';import { claims } from '@/data/mock';
+export default function Claims(){return <AppShell><div className="mb-4 flex items-center justify-between"><h2 className="text-2xl font-black text-brand-900">Заявления</h2><Button href="/claims/new">Новое заявление</Button></div><div className="grid gap-4">{claims.map(c=><Card key={c.id}><b>{c.title}</b><p className="text-sm text-slate-500">{c.status} · {c.date}</p></Card>)}</div></AppShell>}

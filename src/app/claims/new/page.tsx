@@ -1,0 +1,2 @@
+import { AppShell } from '@/components/layout/AppShell';import { Button } from '@/components/ui/Button';import { Card } from '@/components/ui/Card';
+export default function NewClaim(){return <AppShell><Card className="mx-auto max-w-2xl space-y-4"><h2 className="text-2xl font-black text-brand-900">Новое заявление</h2><input className="w-full rounded-2xl bg-lavender p-4" placeholder="Тема заявления"/><textarea className="min-h-36 w-full rounded-2xl bg-lavender p-4" placeholder="Опишите запрос"/><Button>Отправить заявление</Button></Card></AppShell>}
