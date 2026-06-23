@@ -9,10 +9,22 @@ export const navItems = [
   { href: '/notifications', label: 'События', icon: Bell },
   { href: '/profile', label: 'Профиль', icon: UserRound },
 ];
-export const contracts = [{ id: 'contract-1', title: 'Выгодный старт', type: 'Инвестиционное страхование жизни', status: 'Активен', premium: '30 000 ₽', nextPaymentDate: '25 июля', insuredAmount: '1 500 000 ₽', paidPercent: 64, term: '2023—2033', number: 'RL-ИСЖ-102938', yield: '+8,4%', reserve: '970 000 ₽' }];
+export const contracts = [{ id: 'contract-1', title: 'Выгодный старт', type: 'Инвестиционное страхование жизни', status: 'Договор действует', premium: '30 000 ₽', nextPaymentDate: '25 июля', insuredAmount: '1 500 000 ₽', paidPercent: 64, term: '2023—2033', number: 'RL-ИСЖ-102938', yield: '+8,4%', reserve: '970 000 ₽' }];
 export const payments = [{ id: 'pay-001', contractId: 'contract-1', amount: '30 000 ₽', dueDate: '25 июля', status: 'Ожидает оплаты' }];
-export const documents = [{ id: 'doc-1', title: 'Полис Выгодный старт', date: '12.04.2023', type: 'PDF' }, { id: 'doc-2', title: 'График платежей', date: '12.04.2023', type: 'PDF' }, { id: 'doc-3', title: 'Памятка клиента', date: '02.06.2026', type: 'PDF' }];
-export const notifications = [{ id: 'n-1', title: 'Следующий платёж скоро', text: 'Внесите 30 000 ₽ до 25 июля, чтобы договор оставался активным.', icon: Bell }, { id: 'n-2', title: 'Документы обновлены', text: 'В личном кабинете доступен актуальный график платежей.', icon: FileText }];
+export const documents = [
+  { id: 'doc-1', title: 'Полис «Выгодный старт»', date: '12.04.2023', type: 'PDF', contract: '№ RL-ИСЖ-102938' },
+  { id: 'doc-2', title: 'График платежей', date: '12.04.2023', type: 'PDF', contract: '№ RL-ИСЖ-102938' },
+  { id: 'doc-3', title: 'Памятка клиента', date: '02.06.2026', type: 'PDF', contract: '№ RL-ИСЖ-102938' },
+  { id: 'doc-4', title: 'Чек по взносу', date: '25.06.2025', type: 'PDF', contract: '№ RL-ИСЖ-102938' },
+];
+export const notifications = [
+  { id: 'n-1', title: 'Следующий платёж скоро', text: 'Внесите 30 000 ₽ до 25 июля, чтобы договор оставался активным.', type: 'Платёж', date: 'Сегодня', status: 'Важно', icon: Bell },
+  { id: 'n-2', title: 'Документы обновлены', text: 'В личном кабинете доступен актуальный график платежей.', type: 'Документы', date: '20 июня', status: 'Новое', icon: FileText },
+  { id: 'n-3', title: 'Полис выпущен', text: 'Полис по договору «Выгодный старт» доступен для скачивания.', type: 'Договор', date: '12 апреля', status: 'Готово', icon: ShieldCheck },
+  { id: 'n-4', title: 'График платежей доступен', text: 'Проверьте даты будущих взносов в разделе документов.', type: 'Платежи', date: '12 апреля', status: 'Готово', icon: CreditCard },
+];
 export const claims = [{ id: 'cl-1', title: 'Заявление на изменение данных', status: 'В обработке', date: '18 июня' }];
 export const quickActions = [{ label: 'Связаться с менеджером', icon: HeartHandshake }, { label: 'Оплатить взнос', icon: CreditCard }, { label: 'Скачать полис', icon: FileText }];
 export type Contract = typeof contracts[number];
+export type Document = typeof documents[number];
+export type Notification = typeof notifications[number];
