@@ -11,9 +11,9 @@ type AppShellProps = {
 
 export function AppShell({ children, aside, showTopBar = true }: AppShellProps) {
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,#ffffff_0,#f6f1fb_34%,#efeaf7_100%)]">
+    <>
       <DesktopSidebar />
-      <main className="px-4 pb-36 pt-4 sm:px-6 lg:ml-72 lg:px-8 lg:py-7">
+      <main className="min-h-screen px-4 pb-36 pt-4 sm:px-8 lg:ml-72 lg:px-10 lg:py-8">
         {showTopBar ? <TopBar /> : null}
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
           <section>{children}</section>
@@ -21,6 +21,6 @@ export function AppShell({ children, aside, showTopBar = true }: AppShellProps) 
         </div>
       </main>
       <MobileBottomNav />
-    </div>
+    </>
   );
 }
