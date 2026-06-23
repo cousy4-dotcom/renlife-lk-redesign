@@ -1,4 +1,4 @@
-import { ShieldCheck } from 'lucide-react';
+import { ArrowUpRight, CreditCard, FileText, ShieldCheck } from 'lucide-react';
 import { Button } from './Button';
 import { Card } from './Card';
 import { ProgressBar } from './ProgressBar';
@@ -14,26 +14,32 @@ export function ContractCard({ contract }: { contract: Contract }) {
   ];
 
   return (
-    <Card className="space-y-2.5 md:space-y-3.5">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-        <div className="flex gap-2.5 md:gap-3">
-          <div className="grid h-9 w-9 shrink-0 place-items-center rounded-[1rem] bg-lavender text-brand-900 md:h-10 md:w-10"><ShieldCheck size={19} /></div>
+    <Card className="space-y-4 md:space-y-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div className="flex gap-3 md:gap-4">
+          <div className="grid h-11 w-11 shrink-0 place-items-center rounded-[1.2rem] bg-lavender text-brand-900"><ShieldCheck size={21} /></div>
           <div>
-            <div className="flex flex-wrap items-center gap-1.5 md:gap-2"><h3 className="text-base font-black leading-tight text-brand-900 md:text-xl">{contract.title}</h3><StatusBadge>{contract.status}</StatusBadge></div>
-            <p className="mt-0.5 text-xs leading-5 text-slate-500 md:text-sm">№ {contract.number}</p>
-            <p className="text-xs leading-5 text-slate-500 md:text-sm">{contract.type}</p>
+            <div className="flex flex-wrap items-center gap-2"><h3 className="text-lg font-black leading-tight text-brand-900 md:text-2xl">{contract.title}</h3><StatusBadge>{contract.status}</StatusBadge></div>
+            <p className="mt-1 text-sm leading-5 text-slate-500">№ {contract.number} · {contract.type}</p>
+            <p className="text-sm leading-5 text-slate-500">Срок: {contract.term} · Клиент: {contract.owner}</p>
           </div>
         </div>
+        <div className="flex flex-wrap gap-2">
+          <Button href={`/contracts/${contract.id}/payment`} className="py-2.5"><CreditCard size={16} />Оплатить</Button>
+          <Button href={`/contracts/${contract.id}`} variant="ghost" className="py-2.5"><ArrowUpRight size={16} />Открыть</Button>
+        </div>
       </div>
-      <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-        {metrics.map(([label, value]) => <p key={label} className="rounded-2xl bg-lavender p-2 md:p-3"><span className="block text-[11px] font-semibold text-slate-400 md:text-xs">{label}</span><b className="text-sm text-brand-900 md:text-[15px]">{value}</b></p>)}
+      <div className="grid grid-cols-2 gap-2.5 md:grid-cols-4">
+        {metrics.map(([label, value]) => <p key={label} className="rounded-[1.15rem] bg-lavender p-3 md:p-4"><span className="block text-xs font-semibold text-slate-400">{label}</span><b className="mt-1 block text-base text-brand-900 md:text-lg">{value}</b></p>)}
       </div>
       <div>
-        <div className="mb-1.5 flex justify-between text-xs font-bold text-slate-500"><span>Прогресс договора</span><span>{contract.paidPercent}%</span></div>
+        <div className="mb-2 flex justify-between text-xs font-bold text-slate-500"><span>Прогресс накоплений и защиты</span><span>{contract.paidPercent}%</span></div>
         <ProgressBar value={contract.paidPercent} />
       </div>
-      <p className="text-xs leading-5 text-slate-500">Защита действует при своевременной оплате взносов.</p>
-      <div className="flex flex-col gap-2 sm:flex-row"><Button href={`/contracts/${contract.id}`} className="py-2.5">Открыть договор</Button><Button href={`/contracts/${contract.id}/payment`} variant="ghost" className="py-2.5">Оплатить</Button></div>
+      <div className="flex flex-col gap-2 border-t border-slate-100 pt-4 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+        <span>Защита действует при своевременной оплате взносов.</span>
+        <span className="inline-flex items-center gap-2 font-bold text-brand-900"><FileText size={16} /> Документы готовы</span>
+      </div>
     </Card>
   );
 }

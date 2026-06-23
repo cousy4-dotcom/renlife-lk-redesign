@@ -1,16 +1,16 @@
+import { LockKeyhole, Mail, MapPin, ShieldCheck, UserRound } from 'lucide-react';
 import { AppShell } from '@/components/layout/AppShell';
 import { Card } from '@/components/ui/Card';
 import { client } from '@/data/mock';
 
 const sections = [
-  { title: 'Персональные данные', rows: [['Клиент', client.name], ['Город обслуживания', client.city], ['Статус', client.loyalty]] },
-  { title: 'Контакты', rows: [['Телефон', '+7 999 *** ** 45'], ['Email', 'a***@mail.ru']] },
-  { title: 'Паспортные данные', rows: [['Паспорт', '**** ******'], ['Проверка', 'Данные подтверждены']] },
-  { title: 'Адрес', rows: [['Адрес регистрации', 'Москва, ********'], ['Адрес для писем', 'Совпадает с регистрацией']] },
-  { title: 'Безопасность', rows: [['Вход', 'Пароль и SMS-код'], ['Уведомления', 'Подключены']] },
-  { title: 'Подпись для онлайн-заявлений', rows: [['Статус', 'Готова к использованию'], ['Подтверждение', 'Через SMS-код']] },
+  { title: 'Персональные данные', icon: UserRound, rows: [['Клиент', client.name], ['Город обслуживания', client.city], ['Статус', client.loyalty], ['Персональный менеджер', client.manager]] },
+  { title: 'Контакты', icon: Mail, rows: [['Телефон', client.phone], ['Email', client.email], ['Предпочтительный канал', 'SMS и email']] },
+  { title: 'Паспортные данные', icon: ShieldCheck, rows: [['Паспорт', '**** ******'], ['Проверка', 'Данные подтверждены'], ['Обновление', 'Через заявление']] },
+  { title: 'Адрес', icon: MapPin, rows: [['Адрес регистрации', 'Москва, ********'], ['Адрес для писем', 'Совпадает с регистрацией']] },
+  { title: 'Безопасность', icon: LockKeyhole, rows: [['Вход', 'Пароль и SMS-код'], ['Уведомления', 'Подключены'], ['Онлайн-подпись', 'Готова к использованию']] },
 ];
 
 export default function Profile() {
-  return <AppShell><div className="space-y-3.5 md:space-y-4"><header><h1 className="text-[24px] font-black leading-tight text-brand-900 md:text-[32px]">Профиль</h1><p className="mt-1 text-sm leading-5 text-slate-500 md:text-[15px]">Данные клиента и настройки безопасного обслуживания</p></header><div className="grid gap-2.5 md:gap-4 lg:grid-cols-2">{sections.map((section) => <Card key={section.title}><h2 className="text-lg font-black text-brand-900 md:text-xl">{section.title}</h2><div className="mt-3 space-y-2.5 md:mt-4 md:space-y-3">{section.rows.map(([label, value]) => <div key={label} className="flex items-center justify-between gap-4 border-b border-slate-100 pb-3 text-sm last:border-0 last:pb-0"><span className="text-slate-500">{label}</span><b className="text-right text-brand-900">{value}</b></div>)}</div></Card>)}</div></div></AppShell>;
+  return <AppShell><div className="space-y-5 md:space-y-6"><header className="rounded-[1.8rem] bg-brand-900 p-5 text-white shadow-card md:p-7"><p className="text-xs font-semibold uppercase tracking-[.16em] text-white/50">Профиль</p><div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center"><div className="grid h-16 w-16 place-items-center rounded-[1.5rem] bg-cta text-2xl font-black text-brand-900">{client.initials}</div><div><h1 className="text-[28px] font-black leading-tight md:text-[38px]">{client.name}</h1><p className="mt-1 text-sm leading-6 text-white/72 md:text-base">Персональные данные, контакты и настройки безопасности для обслуживания договоров.</p></div></div></header><div className="grid gap-4 lg:grid-cols-2">{sections.map(({ title, rows, icon: Icon }) => <Card key={title}><div className="flex items-center gap-3"><div className="grid h-10 w-10 place-items-center rounded-[1rem] bg-lavender text-brand-900"><Icon size={18} /></div><h2 className="text-xl font-black text-brand-900">{title}</h2></div><div className="mt-5 space-y-3">{rows.map(([label, value]) => <div key={label} className="flex items-start justify-between gap-4 border-b border-slate-100 pb-3 text-sm last:border-0 last:pb-0"><span className="text-slate-500">{label}</span><b className="max-w-[55%] text-right leading-5 text-brand-900">{value}</b></div>)}</div></Card>)}</div></div></AppShell>;
 }
