@@ -15,7 +15,7 @@ export const navItems = [
   { href: '/contracts', label: 'Договоры', icon: ShieldCheck },
   { href: '/documents', label: 'Документы', icon: FileText },
   { href: '/claims', label: 'Заявления', icon: MessageSquareText },
-  { href: '/notifications', label: 'События', icon: Bell },
+  { href: '/events', label: 'События', icon: Bell },
   { href: '/profile', label: 'Профиль', icon: UserRound },
 ];
 

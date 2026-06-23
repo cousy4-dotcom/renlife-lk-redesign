@@ -5,13 +5,13 @@ import { TopBar } from './TopBar';
 
 export function AppShell({ children, aside }: { children: ReactNode; aside?: ReactNode }) {
   return (
-    <div className="min-h-screen bg-lavender">
+    <div className="min-h-screen overflow-x-clip bg-lavender">
       <DesktopSidebar />
-      <main className="px-4 pb-[calc(108px+env(safe-area-inset-bottom))] pt-4 sm:px-6 sm:pb-[calc(116px+env(safe-area-inset-bottom))] md:pb-[calc(122px+env(safe-area-inset-bottom))] lg:ml-[280px] lg:px-8 lg:py-8 xl:px-10">
-        <div className="mx-auto max-w-[1180px]">
+      <main className="px-4 pb-[calc(96px+env(safe-area-inset-bottom))] pt-3 sm:px-6 sm:pb-[calc(104px+env(safe-area-inset-bottom))] md:pt-5 md:pb-[calc(108px+env(safe-area-inset-bottom))] lg:ml-[280px] lg:px-8 lg:py-8 xl:px-10">
+        <div className="mx-auto w-full max-w-[1180px]">
           <TopBar />
-          <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_300px]">
-            <section>{children}</section>
+          <div className="grid min-w-0 gap-5 md:gap-6 xl:grid-cols-[minmax(0,1fr)_300px]">
+            <section className="min-w-0">{children}</section>
             <aside className="hidden space-y-4 xl:block">{aside}</aside>
           </div>
         </div>

@@ -1,3 +1,14 @@
-import Link from 'next/link';import type { ReactNode } from 'react';
-type Props={children:ReactNode;href?:string;variant?:'primary'|'secondary'|'ghost';className?:string};
-export function Button({children,href,variant='primary',className=''}:Props){const styles={primary:'bg-cta text-brand-900 hover:bg-[#aaf021]',secondary:'bg-brand-900 text-white hover:bg-brand-800',ghost:'bg-lavender text-brand-900 ring-1 ring-brand-900/8 hover:bg-white'}[variant];const cls=`inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-extrabold transition ${styles} ${className}`;return href?<Link className={cls} href={href}>{children}</Link>:<button className={cls}>{children}</button>}
+import Link from 'next/link';
+import type { ReactNode } from 'react';
+
+type Props = { children: ReactNode; href?: string; variant?: 'primary' | 'secondary' | 'ghost'; className?: string };
+
+export function Button({ children, href, variant = 'primary', className = '' }: Props) {
+  const styles = {
+    primary: 'bg-cta text-brand-900 hover:bg-[#aaf021]',
+    secondary: 'bg-brand-900 text-white hover:bg-brand-800',
+    ghost: 'bg-lavender text-brand-900 ring-1 ring-brand-900/8 hover:bg-white',
+  }[variant];
+  const cls = `inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl px-5 py-3 text-sm font-extrabold transition ${styles} ${className}`;
+  return href ? <Link className={cls} href={href}>{children}</Link> : <button className={cls}>{children}</button>;
+}
