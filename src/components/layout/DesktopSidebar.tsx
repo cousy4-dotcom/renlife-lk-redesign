@@ -3,4 +3,38 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navItems } from '@/data/mock';
 
-export function DesktopSidebar(){const p=usePathname();return <aside className="fixed left-0 top-0 hidden h-screen w-72 flex-col border-r border-white/10 bg-brand-900 p-5 text-white lg:flex"><div className="mb-8 rounded-[2rem] bg-white/8 p-5"><p className="text-xs uppercase tracking-[.28em] text-white/50">Личный кабинет</p><div className="mt-2 text-2xl font-black leading-tight">Ренессанс<br/><span className="text-cta">Жизнь</span></div></div><nav className="space-y-1.5">{navItems.map(({href,label,icon:Icon})=>{const active=p===href||p.startsWith(`${href}/`);return <Link key={href} href={href} className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition ${active?'bg-white text-brand-900 shadow-card':'text-white/68 hover:bg-white/10 hover:text-white'}`}><Icon size={19}/>{label}</Link>})}</nav><div className="mt-auto rounded-[1.7rem] border border-white/10 bg-white/8 p-4 text-sm text-white/75"><b className="block text-white">Поддержка 24/7</b><span>Финансово-страховой центр клиента</span></div></aside>}
+export function DesktopSidebar() {
+  const pathname = usePathname();
+
+  return (
+    <aside className="fixed left-0 top-0 hidden h-screen w-[280px] flex-col bg-brand-900 px-5 py-6 text-white lg:flex">
+      <div className="mb-7 px-2">
+        <p className="text-[11px] font-semibold tracking-[.18em] text-white/45">Личный кабинет</p>
+        <div className="mt-2 text-[22px] font-black leading-[1.05] tracking-tight">
+          Ренессанс <span className="text-cta">Жизнь</span>
+        </div>
+      </div>
+      <nav className="space-y-1">
+        {navItems.map(({ href, label, icon: Icon }) => {
+          const active = pathname === href || pathname.startsWith(`${href}/`);
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={`flex h-11 items-center gap-3 rounded-full px-4 text-[15px] font-semibold transition ${
+                active ? 'bg-white text-brand-900 shadow-card' : 'text-white/68 hover:bg-white/10 hover:text-white'
+              }`}
+            >
+              <Icon size={18} />
+              {label}
+            </Link>
+          );
+        })}
+      </nav>
+      <div className="mt-auto rounded-3xl border border-white/10 bg-white/7 p-4 text-sm text-white/70">
+        <b className="block text-[15px] text-white">Поддержка</b>
+        <span>Чат и линия клиента 24/7</span>
+      </div>
+    </aside>
+  );
+}
