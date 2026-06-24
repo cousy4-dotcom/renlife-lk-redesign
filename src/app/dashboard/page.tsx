@@ -4,6 +4,7 @@ import { AppShell } from '@/components/layout/AppShell';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { ContractCard } from '@/components/ui/ContractCard';
+import { InsightStories } from '@/components/dashboard/InsightStories';
 import { DocumentCard } from '@/components/ui/DocumentCard';
 import { NotificationCard } from '@/components/ui/NotificationCard';
 import { contracts, documents, notifications, quickActions } from '@/data/mock';
@@ -32,6 +33,8 @@ export default function DashboardPage() {
             </div>
           </div>
         </section>
+
+        <InsightStories />
 
         <section className="rounded-[1.35rem] bg-white p-3.5 shadow-card md:rounded-[1.6rem] md:p-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
