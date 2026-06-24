@@ -1,109 +1,134 @@
-import { ArrowLeft, CalendarDays, ChevronRight, CreditCard, Download, FileDown, FileText, HeartHandshake, ShieldCheck, Sparkles } from 'lucide-react';
+import {
+  ArrowLeft,
+  CalendarDays,
+  ChevronRight,
+  CreditCard,
+  Download,
+  FileCheck2,
+  FileDown,
+  FileText,
+  MessageCircle,
+  ShieldCheck,
+  Sparkles,
+  UserRound,
+  WalletCards,
+} from 'lucide-react';
 
 import { AppShell } from '@/components/layout/AppShell';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { StatusBadge } from '@/components/ui/StatusBadge';
-import { contracts, documents, notifications, payments } from '@/data/mock';
+import { client, contracts, documents } from '@/data/mock';
 
 const contract = contracts[0];
-const payment = payments[0];
+const paymentHref = `/contracts/${contract.id}/payment`;
 
-const summaryCards = [
-  { label: 'Следующий взнос', value: contract.premium },
-  { label: 'Оплатить до', value: contract.nextPaymentDate },
-  { label: 'Страховая защита', value: contract.insuredAmount },
-  { label: 'Резерв', value: contract.reserve },
-];
-
-const paymentHistory = [
-  { date: '12.04.2025', amount: '30 000 ₽', status: 'Оплачен' },
-  { date: '12.04.2024', amount: '30 000 ₽', status: 'Оплачен' },
-  { date: '12.04.2023', amount: '30 000 ₽', status: 'Оплачен' },
-];
-
-const protectionRows = [
-  { title: 'Дожитие с возвратом взносов', amount: '31 200 ₽', note: 'Выплата при завершении программы' },
-  { title: 'Смерть в результате ДТП', amount: '3 000 ₽', note: 'Дополнительная выплата по риску' },
-  { title: 'Основная защита по договору', amount: contract.insuredAmount, note: 'Ключевая сумма страховой защиты' },
+const moneyMetrics = [
+  { label: 'Внесено', value: '360 000 ₽', hint: 'Сумма всех оплаченных взносов по договору.' },
+  { label: 'Резерв', value: contract.reserve, hint: 'Расчётная сумма накоплений с учётом программы.' },
+  { label: 'Страховая защита', value: contract.insuredAmount, hint: 'Размер защиты, которая действует при активном договоре.' },
+  { label: 'Доходность', value: contract.yield, hint: 'Текущий ориентир результата инвестиционной части.' },
 ];
 
 const contractDocuments = [
   documents[0],
   documents[1],
   documents[2],
-  { id: 'doc-conditions', title: 'Условия страхования', date: '12.04.2023', type: 'PDF' },
+  { id: 'doc-conditions', title: 'Условия страхования', date: '12.04.2023', type: 'PDF', category: 'Правила', size: '1,2 МБ', contract: '№ RL-ИСЖ-102938' },
+];
+
+const participants = [
+  { role: 'Страхователь', name: contract.owner },
+  { role: 'Застрахованный', name: contract.owner },
+  { role: 'Выгодоприобретатель', name: 'по закону' },
+  { role: 'Персональный менеджер', name: client.manager },
+];
+
+const paymentHistory = [
+  { date: '25.06.2025', type: 'Взнос', amount: '30 000 ₽', status: 'Оплачен' },
+  { date: '25.05.2025', type: 'Взнос', amount: '30 000 ₽', status: 'Оплачен' },
+  { date: '25.04.2025', type: 'Взнос', amount: '30 000 ₽', status: 'Оплачен' },
+  { date: '25.07.2025', type: 'Взнос', amount: '30 000 ₽', status: 'Ожидает оплаты' },
 ];
 
 const quickActions = [
-  { label: 'Оплатить очередной взнос', icon: CreditCard, href: `/contracts/${contract.id}/payment` },
+  { label: 'Оплатить очередной взнос', icon: CreditCard, href: paymentHref },
+  { label: 'Скачать полис и график', icon: FileDown, href: '/documents' },
   { label: 'Подать заявление', icon: FileText, href: '/claims/new' },
-  { label: 'Скачать документы', icon: FileDown, href: '/documents' },
   { label: 'Сообщить о страховом случае', icon: ShieldCheck, href: '/claims' },
-  { label: 'Связаться с менеджером', icon: HeartHandshake, href: '/profile' },
+  { label: 'Связаться с поддержкой', icon: MessageCircle, href: '/profile' },
 ];
+
+function PaymentStatusChip({ status }: { status: string }) {
+  const isPaid = status === 'Оплачен';
+  return (
+    <span className={`inline-flex w-fit rounded-full px-3 py-1 text-xs font-extrabold ${isPaid ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100' : 'bg-amber-50 text-amber-700 ring-1 ring-amber-100'}`}>
+      {status}
+    </span>
+  );
+}
 
 export default function ContractDetail() {
   return (
     <AppShell>
-      <div className="space-y-5 md:space-y-6">
+      <div className="space-y-5 pb-4 md:space-y-6 lg:pb-0">
         <Button href="/contracts" variant="ghost" className="w-full sm:w-auto">
           <ArrowLeft size={16} /> Вернуться к договорам
         </Button>
 
-        <section className="overflow-hidden rounded-[2rem] bg-white p-5 shadow-card md:p-7">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-stretch">
-            <div className="min-w-0 space-y-5">
+        <section className="overflow-hidden rounded-[2rem] bg-white shadow-card">
+          <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_340px]">
+            <div className="space-y-6 p-5 md:p-8">
               <div className="flex flex-wrap items-center gap-2">
+                <p className="rounded-full bg-lavender px-3 py-1 text-[11px] font-black uppercase tracking-[.18em] text-brand-900">Договор</p>
                 <StatusBadge>{contract.status}</StatusBadge>
-                <span className="rounded-full bg-lavender px-3 py-1 text-xs font-extrabold text-brand-900">Срок {contract.term}</span>
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[.18em] text-slate-400">Центр управления договором</p>
-                <h1 className="mt-2 text-[32px] font-black leading-tight text-brand-900 md:text-[46px]">{contract.title}</h1>
-                <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-500 md:text-base">{contract.type} · № {contract.number}</p>
+                <h1 className="text-[34px] font-black leading-none text-brand-900 md:text-[52px]">{contract.title}</h1>
+                <p className="mt-3 text-base font-semibold text-slate-500 md:text-lg">{contract.type}</p>
               </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="rounded-[1.35rem] bg-lavender p-4"><p className="text-sm text-slate-500">Клиент</p><b className="mt-1 block text-lg text-brand-900">{contract.owner}</b></div>
-                <div className="rounded-[1.35rem] bg-lavender p-4"><p className="text-sm text-slate-500">Ближайшее действие</p><b className="mt-1 block text-lg text-brand-900">Взнос до {contract.nextPaymentDate}</b></div>
+              <div className="grid gap-3 sm:grid-cols-3">
+                <div className="rounded-[1.35rem] bg-lavender p-4"><p className="text-xs font-bold text-slate-400">Номер договора</p><b className="mt-1 block text-brand-900">№ {contract.number}</b></div>
+                <div className="rounded-[1.35rem] bg-lavender p-4"><p className="text-xs font-bold text-slate-400">Срок</p><b className="mt-1 block text-brand-900">12.04.2023 — 12.04.2033</b></div>
+                <div className="rounded-[1.35rem] bg-lavender p-4"><p className="text-xs font-bold text-slate-400">Клиент</p><b className="mt-1 block text-brand-900">{contract.owner}</b></div>
               </div>
             </div>
-            <div className="flex flex-col justify-between rounded-[1.7rem] bg-brand-900 p-5 text-white">
+            <div className="flex flex-col justify-between bg-brand-900 p-5 text-white md:p-7">
               <div>
-                <Sparkles className="text-cta" />
-                <p className="mt-4 text-sm text-white/60">Всё важное собрано на одном экране: платежи, защита, накопления, документы и события.</p>
+                <Sparkles className="text-cta" size={28} />
+                <p className="mt-5 text-sm leading-6 text-white/70">Договор активен. Ближайший взнос — 30 000 ₽ до 25 июля, документы и история платежей доступны ниже.</p>
               </div>
-              <div className="mt-6 grid gap-3">
-                <Button href={`/contracts/${contract.id}/payment`} className="w-full">Оплатить взнос</Button>
+              <div className="mt-7 grid gap-3">
+                <Button href={paymentHref} className="w-full">Оплатить взнос</Button>
                 <Button href="/documents" variant="ghost" className="w-full bg-white/10 text-white ring-white/15 hover:bg-white/15"><Download size={16} /> Скачать полис</Button>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-          {summaryCards.map((item) => <Card key={item.label} className="p-4 md:p-5"><p className="text-xs font-semibold text-slate-400">{item.label}</p><p className="mt-2 break-words text-xl font-black text-brand-900 md:text-2xl">{item.value}</p></Card>)}
-        </section>
-
-        <Card>
-          <div className="mb-4 flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-2xl font-black text-brand-900">Прогресс программы</h2><p className="mt-1 text-sm text-slate-500">{contract.reserve} накоплено из планового резерва</p></div><b className="text-3xl font-black text-brand-900">{contract.paidPercent}%</b></div>
-          <ProgressBar value={contract.paidPercent} />
-          <p className="mt-4 rounded-[1.15rem] bg-lavender p-4 text-sm font-semibold text-brand-900">Защита действует при своевременной оплате взносов.</p>
+        <Card className="border border-amber-100 bg-white">
+          <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div className="flex gap-4">
+              <div className="grid h-12 w-12 shrink-0 place-items-center rounded-[1.15rem] bg-amber-50 text-amber-600"><CalendarDays size={22} /></div>
+              <div><div className="flex flex-wrap items-center gap-2"><h2 className="text-2xl font-black text-brand-900">Что важно сейчас</h2><span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-extrabold text-amber-700">Требует внимания</span></div><p className="mt-3 text-xl font-black text-brand-900 md:text-2xl">Следующий взнос 30 000 ₽ до 25 июля</p><p className="mt-2 max-w-3xl text-sm leading-6 text-slate-500">Оплатите взнос вовремя, чтобы страховая защита продолжала действовать без перерыва.</p></div>
+            </div>
+            <Button href={paymentHref} className="w-full lg:w-auto">Оплатить</Button>
+          </div>
         </Card>
 
-        <section className="grid gap-5 lg:grid-cols-[minmax(0,.95fr)_minmax(0,1.05fr)]">
-          <Card className="space-y-4"><div className="flex items-center gap-3"><CalendarDays className="text-brand-900" /><h2 className="text-2xl font-black text-brand-900">Платежи</h2></div><div className="rounded-[1.4rem] bg-lavender p-4"><p className="text-sm text-slate-500">Ближайший платёж</p><div className="mt-2 flex flex-wrap items-center justify-between gap-3"><b className="text-2xl text-brand-900">{payment.amount}</b><StatusBadge>{payment.status}</StatusBadge></div><p className="mt-2 text-sm font-bold text-brand-900">Дата: {payment.dueDate}</p><Button href={`/contracts/${contract.id}/payment`} className="mt-4 w-full">Оплатить</Button></div><div className="space-y-2">{paymentHistory.map((item) => <div key={item.date} className="flex min-h-12 flex-wrap items-center justify-between gap-2 rounded-[1rem] border border-slate-100 px-4 py-3 text-sm"><span className="font-bold text-brand-900">{item.date}</span><span className="text-slate-500">{item.amount}</span><span className="font-bold text-emerald-600">{item.status}</span></div>)}</div></Card>
+        <section><div className="mb-3 flex items-center gap-3"><WalletCards className="text-brand-900" /><h2 className="text-2xl font-black text-brand-900">Деньги и защита</h2></div><div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">{moneyMetrics.map((item) => <Card key={item.label} className="p-5"><p className="text-sm font-bold text-slate-400">{item.label}</p><p className="mt-2 text-2xl font-black text-brand-900 md:text-3xl">{item.value}</p><p className="mt-3 text-sm leading-5 text-slate-500">{item.hint}</p></Card>)}</div></section>
 
-          <Card className="space-y-4"><div className="flex items-center gap-3"><ShieldCheck className="text-brand-900" /><h2 className="text-2xl font-black text-brand-900">Страховая защита</h2></div>{protectionRows.map((item) => <div key={item.title} className="rounded-[1.2rem] bg-lavender p-4"><div className="flex flex-wrap items-start justify-between gap-3"><div><h3 className="font-black text-brand-900">{item.title}</h3><p className="mt-1 text-sm text-slate-500">{item.note}</p></div><b className="text-lg text-brand-900">{item.amount}</b></div></div>)}</Card>
+        <Card><div className="mb-4 flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-2xl font-black text-brand-900">Прогресс накоплений</h2><p className="mt-1 text-sm text-slate-500">Вы выполнили 64% плана по договору</p></div><b className="text-3xl font-black text-brand-900">64%</b></div><ProgressBar value={64} /><p className="mt-4 rounded-[1.15rem] bg-lavender p-4 text-sm font-semibold leading-6 text-brand-900">При своевременной оплате взносов договор продолжает действовать, а защита сохраняется.</p></Card>
+
+        <section className="grid gap-5 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,.85fr)]">
+          <Card><h2 className="text-2xl font-black text-brand-900">Документы договора</h2><div className="mt-4 grid gap-3">{contractDocuments.map((document) => <div key={document.id} className="flex flex-col gap-3 rounded-[1.25rem] bg-lavender p-4 sm:flex-row sm:items-center sm:justify-between"><div className="flex gap-3"><div className="grid h-11 w-11 shrink-0 place-items-center rounded-[1rem] bg-white text-brand-900"><FileCheck2 size={20} /></div><div><p className="font-black text-brand-900">{document.title}</p><p className="mt-1 text-sm text-slate-500">{document.category} · {document.date} · {document.size}</p></div></div><Button href="/documents" variant="secondary" className="w-full sm:w-auto"><Download size={16} />Скачать</Button></div>)}</div></Card>
+          <Card><h2 className="text-2xl font-black text-brand-900">Участники договора</h2><div className="mt-4 grid gap-3">{participants.map((item) => <div key={item.role} className="flex items-center gap-3 rounded-[1.2rem] bg-lavender p-4"><UserRound size={18} className="text-brand-900" /><div><p className="text-sm text-slate-500">{item.role}</p><p className="font-black text-brand-900">{item.name}</p></div></div>)}</div></Card>
         </section>
 
-        <section className="grid gap-5 xl:grid-cols-2">
-          <Card><h2 className="text-2xl font-black text-brand-900">Документы договора</h2><div className="mt-4 grid gap-3">{contractDocuments.map((document) => <div key={document.id} className="flex flex-col gap-3 rounded-[1.2rem] bg-lavender p-4 sm:flex-row sm:items-center sm:justify-between"><div><p className="font-black text-brand-900">{document.title}</p><p className="mt-1 text-sm text-slate-500">{document.type} · {document.date}</p></div><Button href="/documents" variant="secondary" className="w-full sm:w-auto"><Download size={16} />Скачать</Button></div>)}</div></Card>
-          <Card><h2 className="text-2xl font-black text-brand-900">Действия по договору</h2><div className="mt-4 grid gap-3">{quickActions.map(({ label, icon: Icon, href }) => <Button key={label} href={href} variant="ghost" className="min-h-12 w-full justify-between px-4"><span className="flex items-center gap-3"><Icon size={18} />{label}</span><ChevronRight size={16} /></Button>)}</div></Card>
-        </section>
+        <Card><h2 className="text-2xl font-black text-brand-900">История платежей</h2><div className="mt-4 overflow-hidden rounded-[1.35rem] border border-slate-100"><div className="hidden grid-cols-[1fr_1fr_1fr_1fr] bg-lavender px-4 py-3 text-xs font-black uppercase tracking-[.12em] text-slate-400 md:grid"><span>Дата</span><span>Операция</span><span>Сумма</span><span>Статус</span></div>{paymentHistory.map((item) => <div key={`${item.date}-${item.status}`} className="grid gap-2 border-t border-slate-100 bg-white p-4 first:border-t-0 md:grid-cols-[1fr_1fr_1fr_1fr] md:items-center"><p className="font-black text-brand-900">{item.date}</p><p className="text-sm font-semibold text-slate-500">{item.type}</p><p className="text-lg font-black text-brand-900 md:text-base">{item.amount}</p><PaymentStatusChip status={item.status} /></div>)}</div></Card>
 
-        <Card><h2 className="text-2xl font-black text-brand-900">Последние события</h2><div className="mt-4 grid gap-3 md:grid-cols-3">{notifications.slice(0, 3).map((event) => <div key={event.id} className="rounded-[1.2rem] bg-lavender p-4"><div className="flex items-center justify-between gap-3"><event.icon className="text-brand-900" size={20} /><StatusBadge>{event.status}</StatusBadge></div><h3 className="mt-4 font-black text-brand-900">{event.title}</h3><p className="mt-1 text-sm leading-5 text-slate-500">{event.text}</p></div>)}</div></Card>
+        <Card><h2 className="text-2xl font-black text-brand-900">Что можно сделать</h2><div className="mt-4 grid gap-3 md:grid-cols-2">{quickActions.map(({ label, icon: Icon, href }) => <Button key={label} href={href} variant="ghost" className="min-h-14 w-full justify-between px-4"><span className="flex items-center gap-3"><Icon size={18} />{label}</span><ChevronRight size={16} /></Button>)}</div></Card>
       </div>
     </AppShell>
   );
