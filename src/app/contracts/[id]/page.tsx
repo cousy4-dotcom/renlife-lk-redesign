@@ -46,10 +46,10 @@ const participants = [
 ];
 
 const paymentHistory = [
+  { date: '25.07.2025', type: 'Взнос', amount: '30 000 ₽', status: 'Ожидает оплаты' },
   { date: '25.06.2025', type: 'Взнос', amount: '30 000 ₽', status: 'Оплачен' },
   { date: '25.05.2025', type: 'Взнос', amount: '30 000 ₽', status: 'Оплачен' },
   { date: '25.04.2025', type: 'Взнос', amount: '30 000 ₽', status: 'Оплачен' },
-  { date: '25.07.2025', type: 'Взнос', amount: '30 000 ₽', status: 'Ожидает оплаты' },
 ];
 
 const quickActions = [
