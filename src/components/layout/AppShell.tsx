@@ -14,7 +14,7 @@ export function AppShell({
 }) {
   const mobileBottomPadding = hideMobileNav
     ? 'pb-8 sm:pb-10 md:pb-12'
-    : 'pb-[calc(112px+env(safe-area-inset-bottom))] sm:pb-[calc(120px+env(safe-area-inset-bottom))] md:pb-[calc(128px+env(safe-area-inset-bottom))]';
+    : 'pb-[calc(160px+env(safe-area-inset-bottom))] sm:pb-[calc(168px+env(safe-area-inset-bottom))] md:pb-[calc(180px+env(safe-area-inset-bottom))] lg:pb-8';
 
   return (
     <div className="min-h-screen overflow-x-clip bg-lavender">
