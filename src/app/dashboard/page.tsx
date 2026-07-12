@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { CalendarDays, CheckCircle2, ChevronRight, FileText, HeartHandshake, ShieldCheck, WalletCards } from 'lucide-react';
 
 import { AppShell } from '@/components/layout/AppShell';
@@ -10,6 +11,7 @@ import { NotificationCard } from '@/components/ui/NotificationCard';
 import { contracts, documents, notifications, quickActions } from '@/data/mock';
 
 const activeContract = contracts[0];
+const actionHrefs: Record<string, string> = { 'Связаться с менеджером': '/profile', 'Оплатить взнос': '/payment', 'Скачать полис': '/documents' };
 const protectionItems = [
   { label: 'Резерв', value: activeContract.reserve, hint: '64% к плану' },
   { label: 'Защита', value: activeContract.insuredAmount, hint: 'активна' },
@@ -42,7 +44,7 @@ export default function DashboardPage() {
               <div className="grid h-10 w-10 shrink-0 place-items-center rounded-[1.05rem] bg-lavender text-brand-900"><CalendarDays size={19} /></div>
               <div><h2 className="text-lg font-black leading-tight text-brand-900 md:text-xl">Платёж 30 000 ₽ до 25 июля</h2><p className="mt-1 max-w-xl text-sm leading-5 text-slate-500">Отдельное действие для продления страховой защиты без перерыва.</p></div>
             </div>
-            <Button href="/contracts/contract-1/payment" className="h-10 w-full sm:w-auto">Оплатить взнос</Button>
+            <Button href="/payment" className="h-10 w-full sm:w-auto">Оплатить взнос</Button>
           </div>
         </section>
 
@@ -55,7 +57,7 @@ export default function DashboardPage() {
           </Card>
           <Card><div className="mb-3 flex items-center justify-between"><h2 className="text-lg font-black text-brand-900 md:text-xl">Документы</h2><FileText size={20} className="text-slate-300" /></div><div className="space-y-2">{documents.slice(0, 2).map((document) => <DocumentCard key={document.id} {...document} />)}</div></Card>
           <Card><div className="mb-3 flex items-center justify-between"><h2 className="text-lg font-black text-brand-900 md:text-xl">События</h2><CheckCircle2 size={20} className="text-slate-300" /></div><div className="space-y-2">{notifications.slice(0, 3).map((notification) => <NotificationCard key={notification.id} {...notification} />)}</div></Card>
-          <Card><div className="mb-3 flex items-center justify-between"><div><h2 className="text-lg font-black text-brand-900 md:text-xl">Быстрые действия</h2><p className="text-sm text-slate-500">Частые сценарии.</p></div><HeartHandshake size={20} className="text-slate-300" /></div><div className="grid gap-2">{quickActions.map(({ label, icon: Icon }) => <button key={label} className="flex min-h-11 items-center justify-between rounded-[1rem] bg-lavender px-3 text-left text-sm font-bold text-brand-900"><span className="flex items-center gap-2.5"><Icon size={17} />{label}</span><ChevronRight size={15} /></button>)}</div></Card>
+          <Card><div className="mb-3 flex items-center justify-between"><div><h2 className="text-lg font-black text-brand-900 md:text-xl">Быстрые действия</h2><p className="text-sm text-slate-500">Частые сценарии.</p></div><HeartHandshake size={20} className="text-slate-300" /></div><div className="grid gap-2">{quickActions.map(({ label, icon: Icon }) => <Link key={label} href={actionHrefs[label]} className="flex min-h-11 items-center justify-between rounded-[1rem] bg-lavender px-3 text-left text-sm font-bold text-brand-900 transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cta active:scale-[.99]"><span className="flex items-center gap-2.5"><Icon size={17} />{label}</span><ChevronRight size={15} /></Link>)}</div></Card>
         </section>
       </div>
     </AppShell>
