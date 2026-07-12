@@ -25,7 +25,7 @@ export function ContractCard({ contract }: { contract: Contract }) {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
-          <Button href={`/contracts/${contract.id}/payment`} className="w-full py-2 sm:w-auto"><CreditCard size={15} />Оплатить</Button>
+          <Button href="/payment" className="w-full py-2 sm:w-auto"><CreditCard size={15} />Оплатить</Button>
           <Button href={`/contracts/${contract.id}`} variant="ghost" className="w-full py-2 sm:w-auto"><ArrowUpRight size={15} />Открыть</Button>
         </div>
       </div>
