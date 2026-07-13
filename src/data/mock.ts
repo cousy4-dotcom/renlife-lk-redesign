@@ -23,7 +23,7 @@ export const contracts = [
   {
     id: 'contract-1',
     title: 'Выгодный старт',
-    type: 'Инвестиционное страхование жизни',
+    type: 'Полис накопительного страхования жизни',
     status: 'Договор действует',
     premium: '30 000 ₽',
     nextPaymentDate: '25 июля',
@@ -39,6 +39,27 @@ export const contracts = [
 ];
 
 export const payments = [{ id: 'pay-001', contractId: 'contract-1', amount: '30 000 ₽', dueDate: '25 июля', status: 'Ожидает оплаты' }];
+
+export const financialProgress = {
+  contributed: '970 000 ₽',
+  currentValue: '1 045 000 ₽',
+  result: '75 000 ₽',
+  forecast: '1 520 000 ₽',
+  term: '2023–2033',
+  termProgress: 30,
+  nextPayment: '30 000 ₽',
+  nextPaymentDate: '25 июля',
+};
+
+export const financialChart = [
+  { year: '2023', contributed: 120000, value: 122000, actual: true },
+  { year: '2024', contributed: 480000, value: 500000, actual: true },
+  { year: '2025', contributed: 970000, value: 1045000, actual: true },
+  { year: '2027', contributed: 1090000, value: 1190000, actual: false },
+  { year: '2029', contributed: 1210000, value: 1325000, actual: false },
+  { year: '2031', contributed: 1330000, value: 1450000, actual: false },
+  { year: '2033', contributed: 1450000, value: 1520000, actual: false },
+];
 
 export const documents = [
   { id: 'doc-1', title: 'Полис «Выгодный старт»', date: '12.04.2023', type: 'PDF', category: 'Полисы', size: '1,8 МБ', contract: '№ RL-ИСЖ-102938' },
@@ -56,7 +77,9 @@ export const notifications = [
 ];
 
 export const claims = [{ id: 'cl-1', title: 'Заявление на изменение данных', status: 'В обработке', date: '18 июня' }];
-export const quickActions = [{ label: 'Связаться с менеджером', icon: HeartHandshake }, { label: 'Оплатить взнос', icon: CreditCard }, { label: 'Скачать полис', icon: FileText }];
+export const quickActions = [{ label: 'Оплатить взнос', icon: CreditCard }, { label: 'Открыть договор', icon: ShieldCheck }, { label: 'Связаться с менеджером', icon: HeartHandshake }];
 export type Contract = typeof contracts[number];
+export type FinancialProgress = typeof financialProgress;
+export type FinancialPoint = typeof financialChart[number];
 export type Document = typeof documents[number];
 export type Notification = typeof notifications[number];
