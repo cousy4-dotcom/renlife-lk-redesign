@@ -27,6 +27,20 @@ export default function DashboardPage() {
           </div>
         </section>
 
+        <section className="rounded-[1.35rem] bg-white p-4 shadow-card md:p-5">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex gap-3">
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-[1.05rem] bg-amber-50 text-amber-600"><CalendarDays size={20} /></div>
+              <div>
+                <p className="text-xs font-black uppercase tracking-[.16em] text-amber-600">Ближайшее действие</p>
+                <h2 className="mt-1 text-2xl font-black leading-tight text-brand-900">Оплатить взнос до {financialProgress.nextPaymentDate}</h2>
+                <p className="mt-1 text-sm leading-5 text-slate-500">Сумма к оплате — {financialProgress.nextPayment}. Это сохранит действие договора без перерыва.</p>
+              </div>
+            </div>
+            <Button href="/payment" className="w-full shrink-0 md:w-auto">Оплатить взнос</Button>
+          </div>
+        </section>
+
         <InsightStories />
 
         <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_360px]">
@@ -44,13 +58,16 @@ export default function DashboardPage() {
             </div>
           </Card>
 
-          <section className="rounded-[1.35rem] bg-white p-4 shadow-card">
+          <Card className="p-4 md:p-5">
             <div className="flex gap-3">
-              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-[1.05rem] bg-amber-50 text-amber-600"><CalendarDays size={19} /></div>
-              <div><h2 className="text-lg font-black leading-tight text-brand-900">Ближайший платёж</h2><p className="mt-1 text-xl font-black text-brand-900">{financialProgress.nextPayment} до {financialProgress.nextPaymentDate}</p><p className="mt-1 text-sm leading-5 text-slate-500">Оплата сохраняет действие договора без перерыва.</p></div>
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-[1.05rem] bg-lavender text-brand-900"><CalendarDays size={19} /></div>
+              <div>
+                <h2 className="text-lg font-black leading-tight text-brand-900">График и срок</h2>
+                <p className="mt-1 text-sm leading-5 text-slate-500">Договор рассчитан на {financialProgress.term}. Следующие даты удобно сверять в графике платежей.</p>
+                <Button href="/documents" variant="ghost" className="mt-4 w-full">Открыть документы</Button>
+              </div>
             </div>
-            <Button href="/payment" className="mt-4 w-full">Оплатить взнос</Button>
-          </section>
+          </Card>
         </section>
 
         <FinancialProgress data={financialProgress} />
